@@ -36,7 +36,7 @@ object main extends App{
 
   // Task 1 Accept a parameter numberOfFilms of type Int — find all directors who have directed more than numberOfFilms
   def moreThan(numberOfFilms: Int): Seq[Director] = {
-    directors.filter(director => director.films.size >= numberOfFilms)
+    directors.filter(director => director.films.size > numberOfFilms)
   }
   //moreThan(3).foreach(println)
   // Task 2 Accept a parameter year of type Int — find a director who was born before that year
@@ -87,9 +87,9 @@ object main extends App{
 
   //Starting with directors again, find the average score across all films.
   def averageOfAll() : Double = {
-    var films: Seq[Film] = directors.flatten(director => director.films)
-    var sum: Double = films.foldLeft(0.0)((sum, film) => sum + film.imdbRating)
-    return sum / films.size
+    val films: Seq[Film] = directors.flatten(director => director.films)
+    val sum: Double = films.foldLeft(0.0)((sum, film) => sum + film.imdbRating)
+    sum / films.size
   }
 
   //Task 10 - Tonight’s Listings
@@ -104,7 +104,15 @@ object main extends App{
   //Task 11 - From the Archives
   //Finally, starting with directors again, find the earliest film by any director.
 
-  //def printMin
+  def printMin() : Unit = {
+    directors.foreach(director => {
+      if (director.films.nonEmpty)
+        println(director.films.foldLeft(10000000) ((minimum, i) => math.min(minimum, i.yearOfRelease)))
+    })
+  }
+  printMin()
+
+
 
 
 
